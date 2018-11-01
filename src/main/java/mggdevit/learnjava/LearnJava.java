@@ -1,6 +1,7 @@
 package mggdevit.learnjava;
 
-import mggdevit.learnjava.stream.LearnStreams;
+import mggdevit.learnjava.lang.LearnLang;
+import mggdevit.learnjava.stream.LearnStream;
 
 /**
  *
@@ -12,6 +13,7 @@ public class LearnJava {
     }
 
     public static void main(String[] args) {
-        LearnStreams.learn();
+        LearnLang.learn();
+//        LearnStream.learn();
     }
 }
