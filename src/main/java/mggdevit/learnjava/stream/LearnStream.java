@@ -1,6 +1,8 @@
 package mggdevit.learnjava.stream;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 import mggdevit.learnjava.SampleData;
@@ -8,12 +10,12 @@ import mggdevit.learnjava.SampleData;
 /**
  *
  * @author mgg-dev-it
+ *
+ * https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+ *
  */
 public abstract class LearnStream {
 
-//    public static void ppp(String s) {
-//        System.out.print(s + ", ");
-//    }
     private static void dumpStringStream(Stream<String> stream) {
         dumpStringStream(null, stream);
     }
@@ -37,26 +39,40 @@ public abstract class LearnStream {
     }
 
     public static void learn() {
-        Stream<String> streamEmpty = Stream.empty();
-//        System.out.println("Empty stream");
+        System.out.println("Obtaining streams");
+        System.out.println("-----------------");
         dumpStringStream("Empty stream", Stream.empty());
-
         //String[] sampleData = SampleData.createFruitArray();
         String[] sampleData = SampleData.createRandomOrderedFruitArray();
-        //System.out.println(sampleData);
-        //System.out.println(Arrays.toString(sampleData));
-        //System.out.println(Stream.of(SampleData.createFruitArray()).reduce("", (s, c) -> s + c + ", "));
-        //System.out.println("---");
-        //System.out.println(Stream.of("apple", "orange", "pear").reduce("", (s, c) -> s + c + ", "));
-        //System.out.println("---");
+        System.out.println("Array of random ordered fruits as sample data: " + Arrays.toString(sampleData));
+        List<String> stringList = Arrays.asList(sampleData);
+        System.out.println("List<String> made from sample data array with 'Arrays.asList(T... a)': " + stringList.toString());
 
-        dumpStringStream("Random ordered fruit stream", Stream.of(sampleData));
+        dumpStringStream("Stream created from array with 'Stream.of(T... values)'", Stream.of(sampleData));
+        dumpStringStream("Stream created from array with 'Arrays.stream(T[] array)'", Arrays.stream(sampleData));
+        dumpStringStream("Stream created from List<String> with 'Collection.stream()'", stringList.stream());
+
+        System.out.println("");
+        System.out.println("Stream info");
+        System.out.println("-----------");
         System.out.println("Stream element count: " + Stream.of(sampleData).count());
+        System.out.println("Stream any match 'anyMatch(s -> s.contains(\"a\"))': " + Stream.of(sampleData).anyMatch(s -> s.contains("a")));
+        System.out.println("Stream all match: 'allMatch(s -> s.contains(\"a\"))': " + Stream.of(sampleData).allMatch(s -> s.contains("a")));
+        System.out.println("Stream none match: 'noneMatch(s -> s.contains(\"a\"))': " + Stream.of(sampleData).noneMatch(s -> s.contains("a")));
+
+        System.out.println("");
+        System.out.println("Stream to stream");
+        System.out.println("----------------");
         dumpStringStream("Five elements of the stream", Stream.of(sampleData).limit(5));
+
+        System.out.println("");
+        System.out.println("Optionals");
+        System.out.println("---------");
         dumpStringOptional("Any element of the stream ", Stream.of(sampleData).findAny());
         dumpStringOptional("Minimum element of the stream ", Stream.of(sampleData).min(String::compareTo));
         dumpStringOptional("Maximum element of the stream ", Stream.of(sampleData).max(String::compareTo));
 
+        System.out.println("");
         System.out.println("---");
         dumpStringStream("Ordered stream", Stream.of(sampleData).sorted((String s1, String s2) -> (s1.compareTo(s2))));
         dumpStringOptional("First element of the ordered stream ", Stream.of(sampleData).sorted((String s1, String s2) -> (s1.compareTo(s2))).findFirst());
