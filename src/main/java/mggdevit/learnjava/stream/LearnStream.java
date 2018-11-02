@@ -23,7 +23,6 @@ public abstract class LearnStream {
 //    private static void dumpStringStream(Stream<String> stream) {
 //        dumpStringStream(null, stream);
 //    }
-
     private static void dumpIntegerStream(String sHead, Stream<Integer> stream) {
         Integer[] integerArray = stream.toArray(Integer[]::new);
         //System.out.println("stream dump: " + Arrays.toString(stringArray));
@@ -39,7 +38,6 @@ public abstract class LearnStream {
 //    private static void dumpStringOptional(Optional<String> optional) {
 //        dumpStringOptional(null, optional);
 //    }
-
     private static void dumpStringOptional(String sHead, Optional<String> optional) {
         if (optional.isPresent()) {
             System.out.println((sHead == null ? "" : sHead + ": ") + optional.get());
@@ -96,10 +94,19 @@ public abstract class LearnStream {
         dumpStringOptional("Maximum element of the stream ", Stream.of(sampleData).max(String::compareTo));
 
         System.out.println("");
-        System.out.println("---");
-        List<String> list2 = Stream.of("a", "b", "c").filter(element -> element.contains("b")).collect(Collectors.toList());
+        System.out.println("Collectors");
+        System.out.println("----------");
+        List<String> list2 = Stream.of("a", "b", "c").collect(Collectors.toList());
         System.out.println("List<String> made from Stream with 'collect(Collectors.toList()': " + list2.toString());
-        
+        List<Integer> integerList = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+        System.out.println("List<Integer> : " + integerList.toString());
+        System.out.println(integerList.toString() + " 'Collectors.summarizingInt(Integer::new)': " + integerList.stream().collect(Collectors.summarizingInt(Integer::new)));
+        System.out.println(integerList.toString() + " 'Collectors.summarizingInt(Integer::new).getCount()': " + integerList.stream().collect(Collectors.summarizingInt(Integer::new)).getCount());
+        System.out.println(integerList.toString() + " 'Collectors.summarizingInt(Integer::new).getMin()': " + integerList.stream().collect(Collectors.summarizingInt(Integer::new)).getMin());
+        System.out.println(integerList.toString() + " 'Collectors.summarizingInt(Integer::new).getAverage()': " + integerList.stream().collect(Collectors.summarizingInt(Integer::new)).getAverage());
+        System.out.println(integerList.toString() + " 'Collectors.summarizingInt(Integer::new).getMax()': " + integerList.stream().collect(Collectors.summarizingInt(Integer::new)).getMax());
+        System.out.println(integerList.toString() + " 'Collectors.summarizingInt(Integer::new).getSum()': " + integerList.stream().collect(Collectors.summarizingInt(Integer::new)).getSum());
+
         System.out.println("");
         System.out.println("---");
         dumpStringStream("Ordered stream", Stream.of(sampleData).sorted((String s1, String s2) -> (s1.compareTo(s2))));
