@@ -47,6 +47,9 @@ public abstract class LearnStream {
     }
 
     public static void learn() {
+        System.out.println("");
+        System.out.println("LEARNING STREAMS");
+        System.out.println("");
         System.out.println("Obtaining streams");
         System.out.println("-----------------");
         dumpStringStream("Empty stream", Stream.empty());
