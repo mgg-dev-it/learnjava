@@ -13,11 +13,13 @@ public abstract class LearnThread {
         Thread t1 = new Thread(r, "t1");
         Thread t2 = new Thread(r, "t2");
         Thread t3 = new Thread(r, "t3");
+
+        System.out.println("Available processors " + Runtime.getRuntime().availableProcessors());
         System.out.println("Currently in thread " + Thread.currentThread().getName());
         t1.start();
         t2.start();
         t3.start();
-        
+
         try {
             t1.join();
             t2.join();
