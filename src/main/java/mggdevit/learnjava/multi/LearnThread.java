@@ -19,7 +19,6 @@ public abstract class LearnThread {
         t1.start();
         t2.start();
         t3.start();
-
         try {
             t1.join();
             t2.join();
@@ -28,5 +27,44 @@ public abstract class LearnThread {
             System.out.println(ex.getLocalizedMessage());
             ex.printStackTrace(System.out);
         }
+
+        Shared s = new Shared();
+        Runnable rs = () -> {
+            for (int i = 0; i < 1000; i++) {
+                ++s.i;
+            }
+        };
+        Thread ts1 = new Thread(rs, "ts1");
+        Thread ts2 = new Thread(rs, "ts2");
+        ts1.start();
+        ts2.start();
+        try {
+            ts1.join();
+            ts2.join();
+        } catch (InterruptedException ex) {
+            System.out.println(ex.getLocalizedMessage());
+            ex.printStackTrace(System.out);
+        }
+        System.out.println("s.i = " + s.i);
+
+        Shared s2 = new Shared();
+        Runnable rs2 = () -> {
+            for (int i = 0; i < 1000; i++) {
+                s2.increment();
+            }
+        };
+        Thread ts21 = new Thread(rs2, "ts21");
+        Thread ts22 = new Thread(rs2, "ts22");
+        ts21.start();
+        ts22.start();
+        try {
+            ts21.join();
+            ts22.join();
+        } catch (InterruptedException ex) {
+            System.out.println(ex.getLocalizedMessage());
+            ex.printStackTrace(System.out);
+        }
+        System.out.println("s2.i = " + s2.i);
+
     }
 }
